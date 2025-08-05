@@ -14,7 +14,7 @@ import time
 # ========================
 # 1. Set up Gemini model
 # ========================
-os.environ["GOOGLE_API_KEY"] = "AIzaSyApZ35ezyyWb-fgok5CFPtOoTPfcUMrgzs"
+os.environ["GOOGLE_API_KEY"] = 
 
 llm = ChatGoogleGenerativeAI(
     model="models/gemini-2.0-flash-preview-image-generation",
