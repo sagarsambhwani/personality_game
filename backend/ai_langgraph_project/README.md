@@ -65,21 +65,62 @@ The pipeline consists of the following nodes:
 
 ## 🏃‍♂️ Usage
 
-Run the pipeline directly (example provided in `main` block):
+### Running the API Server
 
-```python
-if __name__ == "__main__":
-    initial_state = PersonalityState(
-        profile=Profile(
-            name="Sagar",
-            age=25,
-            gender="Male",
-            profession="Data Engineer",
-            nationality="Indian"
-        )
-    )
-    result = app.invoke(initial_state)
-    print(result)
+1. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your GOOGLE_API_KEY and PGVECTOR_CONN
+   ```
+
+2. **Start the FastAPI server**
+   ```bash
+   python -m uvicorn app.main:app --reload
+   ```
+   
+   The API will be available at `http://localhost:8000`
+   
+3. **Access the API documentation**
+   - Swagger UI: `http://localhost:8000/docs`
+   - ReDoc: `http://localhost:8000/redoc`
+
+### API Endpoints
+
+#### POST `/api/v1/personality/analyze`
+Analyze personality based on user profile.
+
+**Request Body:**
+```json
+{
+  "name": "Sagar",
+  "age": 25,
+  "gender": "Male",
+  "profession": "Data Engineer",
+  "nationality": "Indian"
+}
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "profile": {...},
+  "analysis": {...},
+  "images_generated": 3,
+  "mcqs_count": 3,
+  "mbti_result": "INTJ - ...",
+  "final_response": {...}
+}
+```
+
+#### GET `/api/v1/personality/health`
+Health check endpoint for the personality service.
+
+### Testing the Pipeline
+
+Run the test script to verify the setup:
+```bash
+python test_pipeline.py
 ```
 
 ## 📂 Output
