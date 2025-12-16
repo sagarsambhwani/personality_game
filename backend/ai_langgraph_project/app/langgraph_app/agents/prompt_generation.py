@@ -8,16 +8,16 @@ def prompt_generation_node(state: PersonalityState) -> PersonalityState:
     if state.analysis is None:
         raise ValueError("Profile analysis missing in state")
 
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.7)
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
     
     # Force structured output to ensure we get a list of prompts
     structured_llm = llm.with_structured_output(GeneratedPrompts)
 
     summary = state.analysis.summary
     style_cues = state.analysis.style_cues
-    tone = style_cues.get("tone", "neutral")
-    themes = ", ".join(style_cues.get("themes", []))
-    visual_hints = ", ".join(style_cues.get("visual_hints", []))
+    tone = style_cues.tone
+    themes = ", ".join(style_cues.themes)
+    visual_hints = ", ".join(style_cues.visual_hints)
 
     prompt_text = (
         "You are an imaginative story and image prompt generator. "
@@ -31,5 +31,5 @@ def prompt_generation_node(state: PersonalityState) -> PersonalityState:
     result: GeneratedPrompts = structured_llm.invoke(prompt_text)
 
     # Save into state
-    state.image_prompts = result.prompts
+    state.image_prompts = result
     return state

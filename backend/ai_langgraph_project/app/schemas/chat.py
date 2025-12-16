@@ -11,20 +11,20 @@ class Profile(BaseModel):
     profession: str
     nationality: str
 
+class StyleCues(BaseModel):
+    tone: str = Field(..., description="e.g., 'futuristic, adventurous'")
+    themes: List[str] = Field(..., description="List of thematic elements")
+    visual_hints: List[str] = Field(..., description="Visual styling cues")
+
 #  Define structured schema with Pydantic v2
 class ProfileAnalysis(BaseModel):
     summary: str = Field(
         ...,
         description="1–2 sentence description of the person based on demographics"
     )
-    style_cues: dict = Field(
+    style_cues: StyleCues = Field(
         ...,
-        description="Stylistic cues for generating relatable story/image prompts",
-        examples=[{
-            "tone": "futuristic, adventurous, youthful",
-            "themes": ["innovation", "creativity", "cultural identity"],
-            "visual_hints": ["neon lights", "digital cityscape", "fusion of tech and tradition"]
-        }]
+        description="Stylistic cues for generating relatable story/image prompts"
     )
 
 # Define schema for LLM-generated prompts

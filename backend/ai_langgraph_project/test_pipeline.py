@@ -3,6 +3,11 @@ Test script to verify the personality pipeline setup
 """
 from app.schemas.chat import Profile, PersonalityState
 from app.langgraph_app.workflows.chatbot_graph import app as personality_app
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def test_pipeline():
     """Test the personality analysis pipeline"""

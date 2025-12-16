@@ -10,7 +10,7 @@ def user_profile_node(state: PersonalityState) -> PersonalityState:
         raise ValueError("profile missing in state")
 
     # Load Gemini LLM
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.4)
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.4)
 
     # Wrap with structured output enforcement
     structured_llm = llm.with_structured_output(ProfileAnalysis)
