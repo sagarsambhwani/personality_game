@@ -1,4 +1,5 @@
 from google import genai
+from app.core.llm_factory import LLMFactory
 from app.schemas.chat import PersonalityState
 
 def mcq_node(state: PersonalityState) -> PersonalityState:
@@ -10,12 +11,16 @@ def mcq_node(state: PersonalityState) -> PersonalityState:
     for image_path in state.images:
         print(f"Generating MCQ for image: {image_path}")
 
+
+        # Rate limit before call
+        LLMFactory.rate_limit_sleep(15)
+
         try:
             with open(image_path, "rb") as f:
                 image_bytes = f.read()
 
             response = client.models.generate_content(
-                model="gemini-1.5-pro-vision",
+                model="gemini-1.5-flash",
                 contents=[
                     {
                         "role": "user",

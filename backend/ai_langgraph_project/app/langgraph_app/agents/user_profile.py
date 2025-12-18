@@ -1,4 +1,4 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import LLMFactory
 from app.schemas.chat import PersonalityState, ProfileAnalysis
 
 def user_profile_node(state: PersonalityState) -> PersonalityState:
@@ -10,7 +10,7 @@ def user_profile_node(state: PersonalityState) -> PersonalityState:
         raise ValueError("profile missing in state")
 
     # Load Gemini LLM
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.4)
+    llm = LLMFactory.get_llm(temperature=0.4)
 
     # Wrap with structured output enforcement
     structured_llm = llm.with_structured_output(ProfileAnalysis)

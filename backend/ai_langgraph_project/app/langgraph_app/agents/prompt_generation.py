@@ -1,4 +1,4 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import LLMFactory
 from app.schemas.chat import PersonalityState, GeneratedPrompts
 
 def prompt_generation_node(state: PersonalityState) -> PersonalityState:
@@ -8,7 +8,7 @@ def prompt_generation_node(state: PersonalityState) -> PersonalityState:
     if state.analysis is None:
         raise ValueError("Profile analysis missing in state")
 
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
+    llm = LLMFactory.get_llm(temperature=0.7)
     
     # Force structured output to ensure we get a list of prompts
     structured_llm = llm.with_structured_output(GeneratedPrompts)

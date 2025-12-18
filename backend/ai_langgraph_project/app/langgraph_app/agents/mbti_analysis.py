@@ -1,5 +1,6 @@
 import os
-from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from app.core.llm_factory import LLMFactory
 from langchain_community.vectorstores import PGVector
 from app.schemas.chat import PersonalityState
 
@@ -31,7 +32,7 @@ def mbti_analyzer_node(state: PersonalityState) -> PersonalityState:
         docs = retriever.get_relevant_documents(answers_summary)
         context = "\n\n".join([d.page_content for d in docs])
 
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.3)
+        llm = LLMFactory.get_llm(temperature=0.3)
 
         prompt = f"""
         You are an MBTI personality analyst.  

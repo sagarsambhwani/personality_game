@@ -1,5 +1,6 @@
 import os
 from google import genai
+from app.core.llm_factory import LLMFactory
 from app.schemas.chat import PersonalityState
 
 def image_gen_node(state: PersonalityState) -> PersonalityState:
@@ -17,6 +18,9 @@ def image_gen_node(state: PersonalityState) -> PersonalityState:
 
     for i, prompt in enumerate(state.image_prompts.prompts): # Accessing prompts list from GeneratedPrompts object
         print(f"Generating image for prompt: {prompt}")
+
+        # Rate limit before call
+        LLMFactory.rate_limit_sleep(30)
 
         try:
             response = client.models.generate_content(

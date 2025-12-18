@@ -15,7 +15,7 @@ The system operates as a stateful graph workflow where data flows through severa
 ## 🛠️ Tech Stack
 
 -   **Orchestration**: [LangGraph](https://langchain-ai.github.io/langgraph/) (StateGraph)
--   **LLMs & Vision**: Google Gemini (`gemini-1.5-pro`, `gemini-2.5-flash-image-preview`, `gemini-1.5-pro-vision`)
+-   **LLMs & Vision**: Google Gemini (`gemini-1.5-pro`, `gemini-2.5-flash-image-preview`, `gemini-1.5-flash`)
 -   **Data Validation**: Pydantic v2
 -   **Vector Database**: PostgreSQL with `pgvector`
 -   **Framework**: LangChain (Google GenAI integrations)
@@ -29,7 +29,7 @@ The pipeline consists of the following nodes:
 | **`user_profile`** | Analyzes demographics to extract style cues & summary. | `gemini-1.5-pro` |
 | **`prompt_generation`** | Creates 3-5 visual prompts based on style cues. | `gemini-1.5-pro` |
 | **`image_generation`** | Generates actual images from prompts and saves locally. | `gemini-2.5-flash-image-preview` |
-| **`mcq_generation`** | Analyzes images to generate decision-making MCQs. | `gemini-1.5-pro-vision` |
+| **`mcq_generation`** | Analyzes images to generate decision-making MCQs. | `gemini-1.5-flash` |
 | **`mbti_analysis`** | Matches answers to MBTI types using vector search. | `gemini-1.5-pro` + `embedding-001` |
 
 ## 📋 Prerequisites

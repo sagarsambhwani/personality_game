@@ -35,11 +35,16 @@ def test_pipeline():
         result = personality_app.invoke(initial_state)
         
         print("\n✓ Pipeline completed successfully!")
-        print(f"\nAnalysis Summary: {result.analysis.summary if result.analysis else 'N/A'}")
-        print(f"Images Generated: {len(result.images)}")
-        print(f"MCQs Created: {len(result.mcqs)}")
-        print(f"\nMBTI Result: {result.mbti_result}")
-        print(f"\nFinal Response: {result.final_response}")
+        
+        # Helper to safely get values from dict
+        analysis = result.get('analysis')
+        summary = analysis.summary if analysis else 'N/A'
+        
+        print(f"\nAnalysis Summary: {summary}")
+        print(f"Images Generated: {len(result.get('images', []))}")
+        print(f"MCQs Created: {len(result.get('mcqs', []))}")
+        print(f"\nMBTI Result: {result.get('mbti_result')}")
+        print(f"\nFinal Response: {result.get('final_response')}")
         
     except Exception as e:
         print(f"\n✗ Error: {str(e)}")
