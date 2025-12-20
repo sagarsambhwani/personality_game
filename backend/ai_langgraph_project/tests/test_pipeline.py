@@ -14,10 +14,10 @@ def test_pipeline():
     
     # Create a test profile
     test_profile = Profile(
-        name="Sagar",
+        name="Aashna",
         age=25,
-        gender="Male",
-        profession="Data Engineer",
+        gender="Female",
+        profession="Data Analyst",
         nationality="Indian"
     )
     

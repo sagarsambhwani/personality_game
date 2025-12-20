@@ -25,12 +25,12 @@ async def analyze_personality(profile: Profile):
         # Return the final response
         return {
             "status": "success",
-            "profile": profile.dict(),
-            "analysis": result.analysis.dict() if result.analysis else None,
-            "images_generated": len(result.images),
-            "mcqs_count": len(result.mcqs),
-            "mbti_result": result.mbti_result,
-            "final_response": result.final_response
+            "profile": profile.model_dump(),
+            "analysis": result.get("analysis").model_dump() if result.get("analysis") else None,
+            "images_generated": len(result.get("images", [])),
+            "mcqs_count": len(result.get("mcqs", [])),
+            "mbti_result": result.get("mbti_result"),
+            "final_response": result.get("final_response")
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing personality analysis: {str(e)}")
